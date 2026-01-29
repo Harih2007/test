@@ -1,10 +1,17 @@
 /**
  * JT Trauma Therapy - Main JavaScript
- * Production-ready, accessible interactions
+ * Production-ready, accessible interactions with Supabase integration
  */
 
 (function() {
     'use strict';
+
+    // Supabase configuration
+    const SUPABASE_URL = 'https://tozcjiolexyczaaejhsf.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvemNqaW9sZXh5Y3phYWVqaHNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODQ4OTMsImV4cCI6MjA4NTI2MDg5M30.WCx3bxksjUFL11CaB0shfWuq9q6n3MLxpMoJ8YhfzoA';
+    
+    // Initialize Supabase client
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Form validation patterns
     const VALIDATION_PATTERNS = {
@@ -280,21 +287,54 @@
             setFormState(FORM_STATES.SUBMITTING);
 
             try {
-                // Simulate form submission
-                await new Promise(resolve => setTimeout(resolve, 800));
+                // Collect form data
+                const formData = new FormData(form);
+                const fullName = formData.get('fullName');
+                const email = formData.get('email');
+                const age = formData.get('age');
+                const sessionType = formData.get('sessionType');
+                const availability = formData.get('availability');
+                const notes = formData.get('notes') || 'None';
+
+                // Create email subject and body
+                const subject = `New Booking Request - ${fullName}`;
+                const body = `Hello,
+
+I would like to book a therapy session with the following details:
+
+Name: ${fullName}
+Email: ${email}
+Age: ${age}
+Preferred Session Type: ${sessionType}
+Availability: ${availability}
+Additional Notes: ${notes}
+
+Please contact me to arrange a suitable time.
+
+Thank you,
+${fullName}`;
+
+                // Create mailto link
+                const mailtoLink = `mailto:rogue6293@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 
-                setFormState(FORM_STATES.SUCCESS);
+                // Open email client
+                window.location.href = mailtoLink;
                 
-                // Scroll to success message
-                successMessage?.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
-                });
+                // Show success message after a short delay
+                setTimeout(() => {
+                    setFormState(FORM_STATES.SUCCESS);
+                    
+                    // Scroll to success message
+                    successMessage?.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 500);
 
             } catch (error) {
                 setFormState(FORM_STATES.ERROR);
                 console.error('Form submission error:', error);
-                alert('There was an error submitting your request. Please try again or contact us directly.');
+                alert('There was an error processing your request. Please try again.');
             }
         });
     }
