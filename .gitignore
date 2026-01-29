@@ -2,11 +2,6 @@
 node_modules/
 package-lock.json
 
-# Generated files
-*.webp
-*.min.css
-*.min.js
-
 # Logs
 *.log
 npm-debug.log*
@@ -24,7 +19,11 @@ Thumbs.db
 # Lighthouse reports
 *.report.html
 *.report.json
+lighthouse-*.json
 
 # Temporary files
 *.tmp
 *.temp
+
+# Vercel
+.vercel
