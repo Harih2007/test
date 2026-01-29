@@ -1,0 +1,24 @@
+# Vercel ignore file
+node_modules
+*.log
+.git
+.vscode
+.idea
+
+# Documentation (not needed in deployment)
+*.md
+!README.md
+
+# Development files
+package-lock.json
+*.report.html
+*.report.json
+lighthouse-*.json
+
+# Optimization scripts (run during build)
+optimize-images.js
+check-optimization.js
+
+# Server configs for other platforms
+nginx-performance.conf
+frontend/.htaccess

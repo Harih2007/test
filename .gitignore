@@ -1,1 +1,30 @@
-*.env
+# Dependencies
+node_modules/
+package-lock.json
+
+# Generated files
+*.webp
+*.min.css
+*.min.js
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Lighthouse reports
+*.report.html
+*.report.json
+
+# Temporary files
+*.tmp
+*.temp

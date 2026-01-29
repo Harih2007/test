@@ -1,0 +1,32 @@
+{
+  "name": "jt-trauma-therapy",
+  "version": "1.0.0",
+  "description": "JT Trauma Therapy - Performance Optimized Website",
+  "scripts": {
+    "optimize:images": "node optimize-images.js",
+    "minify:css": "cleancss -o frontend/css/main.min.css frontend/css/main.css && cleancss -o frontend/css/critical.min.css frontend/css/critical.css",
+    "minify:js": "terser frontend/js/main.js -o frontend/js/main.min.js --compress --mangle",
+    "optimize:all": "npm run optimize:images && npm run minify:css && npm run minify:js",
+    "build": "npm run optimize:images",
+    "serve": "npx http-server frontend -p 8080 -c-1",
+    "lighthouse": "lighthouse http://localhost:8080 --view --preset=desktop",
+    "lighthouse:mobile": "lighthouse http://localhost:8080 --view --preset=mobile",
+    "lighthouse:json": "lighthouse http://localhost:8080 --output=json --output-path=./lighthouse-report.json --preset=desktop --quiet",
+    "check": "node check-optimization.js"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "http-server": "^14.1.1",
+    "lighthouse": "^11.4.0",
+    "sharp": "^0.33.1",
+    "terser": "^5.26.0"
+  },
+  "keywords": [
+    "trauma-therapy",
+    "mental-health",
+    "performance",
+    "lighthouse"
+  ],
+  "author": "JT Trauma Therapy",
+  "license": "MIT"
+}
